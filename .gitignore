@@ -1,0 +1,37 @@
+# Virtualenvs and Python artifacts
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local IDE
+.vscode/
+.idea/
+
+# Large binary artifacts and embeddings (do NOT push)
+*.npy
+*.faiss
+*.index
+*.bin
+
+# Project-specific heavy files and folders
+mesh_indices.pkl
+sentence/data/
+factoid/data/
+queries/results/
+
+# Big data folders to ignore
+genes/
+mesh/
+
+# Generated reports and dumps (ignore these outputs)
+final_report.json
+qualitative_dump_full.json
+qualitative_positive.json
+qualitative_negative.json
+results_table.png
+
+# Misc
+*.log
