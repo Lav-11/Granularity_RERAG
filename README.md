@@ -68,7 +68,12 @@ gda-extraction/
 Download the following resources before running the pipeline:
 
 1. **HGNC complete set**: [hgnc_complete_set.txt](https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt)
+
+This file must be placed inside the `genes` folder in `granularity_rerag`.
+
 2. **MeSH descriptors and supplementary concepts** (`desc2026.xml` and `supp2026.xml`): [MeSH XML files](https://nlmpubs.nlm.nih.gov/projects/mesh/MESH_FILES/xmlmesh/)
+
+These files must be placed inside the `mesh` folder in `granularity_rerag`.
 
 ## Installation
 
