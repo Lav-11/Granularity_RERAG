@@ -12,6 +12,36 @@ Before installing this module, download the main project:
 git clone https://github.com/GDAMining/gda-extraction.git
 ```
 
+## Ollama setup
+
+The pipeline calls a local LLM through the Ollama CLI (`ollama run llama3:8b`), so Ollama and the model must be installed on the machine.
+
+1. Download and install Ollama for Windows: [https://ollama.com/download/windows](https://ollama.com/download/windows)
+2. Open a new PowerShell window and check that the installation worked:
+
+```powershell
+   ollama --version
+```
+
+3. Download the model used by the pipeline (about 4.7 GB):
+
+```powershell
+   ollama pull llama3:8b
+```
+
+4. (Recommended) Run the model once to check that it works and to load it for the first time:
+
+```powershell
+   ollama run llama3:8b
+```
+
+   Type `/bye` to exit.
+
+**Notes**
+
+- Ollama must be installed and the `ollama` command must be available in your `PATH` before launching the pipeline.
+- The model name must be exactly `llama3:8b`, as it is the one referenced in the code.
+
 ## Project structure
 
 Place the entire `granularity_rerag` directory inside the main GDA‑Extraction project:
@@ -38,12 +68,7 @@ gda-extraction/
 Download the following resources before running the pipeline:
 
 1. **HGNC complete set**: [hgnc_complete_set.txt](https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt)
-
-This file must be placed inside the `genes` folder in `granularity_rerag`.
-
 2. **MeSH descriptors and supplementary concepts** (`desc2026.xml` and `supp2026.xml`): [MeSH XML files](https://nlmpubs.nlm.nih.gov/projects/mesh/MESH_FILES/xmlmesh/)
-
-These files must be placed inside the `mesh` folder in `granularity_rerag`.
 
 ## Installation
 
