@@ -10,17 +10,17 @@ The pipeline evaluates how well an LLM (llama3:8b, served locally through Ollama
 
 Each run executes three systems, from least to most context:
 
-- **No‑Context** — the model answers from its own knowledge only, no retrieval.
-- **Sentence‑RAG** — the model answers with retrieved raw sentences as context (FAISS index over extracted sentences).
-- **Factoid‑RAG** — the model answers with retrieved structured factoids (`gene relation disease` triples) as context.
+- **No‑Context**: the model answers from its own knowledge only, no retrieval.
+- **Sentence‑RAG**: the model answers with retrieved raw sentences as context (FAISS index over extracted sentences).
+- **Factoid‑RAG**: the model answers with retrieved structured factoids (`gene relation disease` triples) as context.
 
 ### Query types (tasks)
 
 Questions are generated from fixed templates across three tasks, each hiding a different part of the (gene, relation, disease) triple as the answer to predict:
 
-- **relation\_centric** — gene and disease are given, the relation is the target.
-- **object\_centric** — gene and relation are given, the disease is the target.
-- **subject\_centric** — relation and disease are given, the gene is the target.
+- **relation\_centric**: gene and disease are given, the relation is the target.
+- **object\_centric**: gene and relation are given, the disease is the target.
+- **subject\_centric**: relation and disease are given, the gene is the target.
 
 ### Triple extraction
 
