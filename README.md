@@ -2,6 +2,45 @@
 
 This module implements the granularity‑aware retrieval and re‑ranking pipeline used inside the broader **GDA‑Extraction** project. It provides proposition‑level and factoid‑level retrieval, entity normalization, synonym expansion, and evaluation utilities.
 
+## How it works
+
+The pipeline evaluates how well an LLM (llama3:8b, served locally through Ollama) answers gene–disease–relation questions, under three retrieval conditions and three question types, and reports how semantically close each answer is to the gold label.
+
+### Evaluation systems
+
+Each run executes three systems, from least to most context:
+
+- **No‑Context** — the model answers from its own knowledge only, no retrieval.
+- **Sentence‑RAG** — the model answers with retrieved raw sentences as context (FAISS index over extracted sentences).
+- **Factoid‑RAG** — the model answers with retrieved structured factoids (`gene relation disease` triples) as context.
+
+### Query types (tasks)
+
+Questions are generated from fixed templates across three tasks, each hiding a different part of the (gene, relation, disease) triple as the answer to predict:
+
+- **relation\_centric** — gene and disease are given, the relation is the target.
+- **object\_centric** — gene and relation are given, the disease is the target.
+- **subject\_centric** — relation and disease are given, the gene is the target.
+
+### Triple extraction
+
+Before building a retrieval query, each question is parsed back into a (gene, relation, disease) triple:
+
+1. **Dictionary matching first**: gene symbols are matched against HGNC, diseases against indexed MeSH descriptors/synonyms, relations against a small canonical synonym table. The task's own target field is never extracted here, since it is not present in the question by design.
+2. **LLM fallback**: only for the known (non‑target) fields the dictionary failed to find, with a strict JSON‑only prompt and a parser robust to extra text/markdown around the JSON object.
+
+### Semantic scoring (SMS)
+
+Predictions are not simply compared to the gold label. `semantic_match` uses Jaro‑Winkler similarity, expanding the gold label with real synonyms depending on the task (relation synonyms, MeSH synonyms for diseases, optional HGNC synonyms for genes), and includes a guard against spurious high scores caused by short/generic terms being literal prefixes of unrelated longer phrases.
+
+### Outputs
+
+A run produces, under `granularity_rerag/`:
+
+- `final_report.json` — EM/SMS metrics per system and task.
+- `qualitative_dump_full.json` / `qualitative_positive.json` / `qualitative_negative.json` — full per‑example traces (query, gold, prediction, extracted triple, retrieved context, matched synonym), split by whether the SMS score cleared the threshold.
+- `results_table.png` — a summary table of SMS scores across systems and tasks.
+
 ## Prerequisites
 
 Before installing this module, download the main project:
