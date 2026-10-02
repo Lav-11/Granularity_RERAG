@@ -37,9 +37,9 @@ Predictions are not simply compared to the gold label. `semantic_match` uses Jar
 
 A run produces, under `granularity_rerag/`:
 
-- `final_report.json` — EM/SMS metrics per system and task.
-- `qualitative_dump_full.json` / `qualitative_positive.json` / `qualitative_negative.json` — full per‑example traces (query, gold, prediction, extracted triple, retrieved context, matched synonym), split by whether the SMS score cleared the threshold.
-- `results_table.png` — a summary table of SMS scores across systems and tasks.
+- `final_report.json`: EM/SMS metrics per system and task.
+- `qualitative_dump_full.json` / `qualitative_positive.json` / `qualitative_negative.json`: full per‑example traces (query, gold, prediction, extracted triple, retrieved context, matched synonym), split by whether the SMS score cleared the threshold.
+- `results_table.png`: a summary table of SMS scores across systems and tasks.
 
 ## Prerequisites
 
